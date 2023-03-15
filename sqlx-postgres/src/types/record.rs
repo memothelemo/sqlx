@@ -94,7 +94,8 @@ impl<'r> PgRecordDecoder<'r> {
     #[doc(hidden)]
     pub fn try_decode<T>(&mut self) -> Result<T, BoxDynError>
     where
-        T: for<'a> Decode<'a, Postgres> + Type<Postgres>,
+        T: Decode<'r, Postgres> + Type<Postgres>,
+//         T: for<'a> Decode<'a, Postgres> + Type<Postgres>,
     {
         if self.buf.is_empty() {
             return Err(format!("no field `{0}` found on record", self.ind).into());
